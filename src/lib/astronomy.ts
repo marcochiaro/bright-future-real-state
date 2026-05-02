@@ -25,10 +25,23 @@ function esRetrogrado(body: Astronomy.Body, date: Date): boolean {
   return diff < 0;
 }
 
+function getLongitudEcliptica(body: Astronomy.Body, time: Astronomy.AstroTime): number {
+  if (body === Astronomy.Body.Sun) {
+    const sunPos = Astronomy.SunPosition(time);
+    return sunPos.elon;
+  }
+  if (body === Astronomy.Body.Moon) {
+    const geo = Astronomy.GeoVector(body, time, true);
+    const ecl = Astronomy.Ecliptic(geo);
+    return ecl.elon;
+  }
+  return Astronomy.EclipticLongitude(body, time);
+}
+
 export function getPosicionesPlanetas(date: Date = new Date()): PlanetPosition[] {
   const time = Astronomy.MakeTime(date);
   return PLANET_BODIES.map(({ id, nombre, simbolo, body }) => {
-    const lon = Astronomy.EclipticLongitude(body, time);
+    const lon = getLongitudEcliptica(body, time);
     const signo = getSignoPorLongitud(lon);
     const geo = Astronomy.GeoVector(body, time, true);
     const dist = Math.sqrt(geo.x * geo.x + geo.y * geo.y + geo.z * geo.z);

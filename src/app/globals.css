@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cosmic-black: #050514;
+  --cosmic-navy: #0a0a2e;
+  --gold: #d4af37;
+  --gold-dim: rgba(212, 175, 55, 0.3);
+}
+
+body {
+  background: var(--cosmic-black);
+  color: #e8e6f0;
+  min-height: 100vh;
+}
+
+/* Star background with CSS */
+.star-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle-star var(--duration, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: var(--opacity, 0.7);
+}
+
+@keyframes twinkle-star {
+  0%, 100% { opacity: var(--opacity, 0.7); transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(0.5); }
+}
+
+/* Glow effects */
+.glow-card {
+  background: rgba(10, 10, 46, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.glow-card:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cosmic-black);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 3px;
+}
+
+/* Gold gradient text */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffd966, #d4af37, #b8962e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Cosmic gradient background */
+.bg-cosmic-gradient {
+  background: linear-gradient(135deg, #050514 0%, #0a0a2e 50%, #1a0a3e 100%);
+}
